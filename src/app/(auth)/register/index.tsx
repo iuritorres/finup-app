@@ -48,6 +48,7 @@ export default function Register() {
             placeholder='Digite seu número'
             textContentType='telephoneNumber'
             autoComplete='tel-device'
+            keyboardType='phone-pad'
           />
           <Input
             fontAwesomeIcon='envelope'
