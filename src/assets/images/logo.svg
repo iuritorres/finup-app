@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Camada_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 461.01 461.01">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #121212;
+      }
+
+      .cls-2 {
+        stroke-linejoin: round;
+        stroke-width: 15px;
+      }
+
+      .cls-2, .cls-3 {
+        fill: none;
+        stroke: #fff;
+        stroke-linecap: round;
+      }
+
+      .cls-3 {
+        stroke-miterlimit: 10;
+        stroke-width: 12px;
+      }
+
+      .cls-4 {
+        fill: #b6b6b6;
+      }
+    </style>
+  </defs>
+  <g id="Imagens">
+    <rect class="cls-4" x="12.85" y="12.85" width="435.32" height="435.32" rx="121.58" ry="121.58" transform="translate(35.58 -30.78) rotate(8.28)"/>
+    <rect class="cls-1" x="31.38" y="31.57" width="398.21" height="398.21" rx="111.21" ry="111.21"/>
+    <rect class="cls-2" x="122.17" y="269.78" width="46.28" height="69.1" rx="23.14" ry="23.14"/>
+    <rect class="cls-2" x="207.34" y="191.72" width="46.28" height="147.16" rx="23.14" ry="23.14"/>
+    <rect class="cls-2" x="292.52" y="121.89" width="46.28" height="216.99" rx="23.14" ry="23.14"/>
+    <polyline class="cls-3" points="210.41 154.24 210.41 115.11 171.28 115.11"/>
+    <line class="cls-3" x1="210.41" y1="115.11" x2="140.02" y2="185.51"/>
+  </g>
+</svg>
