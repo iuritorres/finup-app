@@ -1,10 +1,14 @@
-import { Text, View } from 'react-native';
-import { AppStyles } from '../AppStyles';
+import useAuth from "@/hooks/useAuth";
+import { Redirect } from "expo-router";
 
-export default function Home() {
-  return (
-    <View style={[AppStyles.backgroundDark, AppStyles.container]}>
-      <Text style={{ color: '#fff' }}>Home</Text>
-    </View>
-  );
+interface IProps {
+  children: React.ReactNode;
+}
+
+export default function AuthGuard({ children }: IProps) {
+  const { signed } = useAuth();
+
+  const url = signed ? "/(tabs)/home" : "/(auth)/login";
+
+  return <Redirect href={url} />;
 }

@@ -1,21 +1,21 @@
-import { useAuth } from '@/hooks/useAuth';
-import { AuthProvider } from '@/providers';
-import { Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat';
+import { AuthProvider } from "@/contexts/auth";
+import { Montserrat_700Bold, useFonts } from "@expo-google-fonts/montserrat";
 import {
   Poppins_400Regular,
   Poppins_600SemiBold,
   Poppins_700Bold,
-} from '@expo-google-fonts/poppins';
-import { Slot, useFocusEffect, useRouter } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
+} from "@expo-google-fonts/poppins";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
+import Toast from "react-native-toast-message";
+export { ErrorBoundary } from "expo-router";
 
 SplashScreen.preventAutoHideAsync();
+const queryClient = new QueryClient();
 
 export default function RootLayout() {
-  const { user } = useAuth();
-  const router = useRouter();
-
   const [fontsLoaded, fontsError] = useFonts({
     Montserrat_700Bold,
     Poppins_400Regular,
@@ -24,19 +24,28 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (fontsLoaded || fontsError) SplashScreen.hideAsync();
-  }, [fontsLoaded, fontsError]);
+    if (fontsError) throw fontsError;
+  }, [fontsError]);
 
-  useFocusEffect(() => {
-    if (fontsLoaded && !user) {
-      router.replace('/(auth)/login');
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
     }
-  });
+  }, [fontsLoaded]);
 
-  if (!fontsLoaded && !fontsError) return null;
+  if (!fontsLoaded) return null;
+
   return (
-    <AuthProvider>
-      <Slot />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <Stack screenOptions={{ headerShown: false }} initialRouteName="index">
+          <Stack.Screen name="index" />
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="(auth)" />
+        </Stack>
+
+        <Toast />
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }
