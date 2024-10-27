@@ -26,6 +26,7 @@ interface RegisterParams {
 interface AuthContextData {
   signed: boolean;
   user?: object;
+  accessToken?: string;
   signIn: ({ email, password }: SignInParams) => Promise<void>;
   signOut: () => Promise<void>;
   register: ({ name, email, password }: RegisterParams) => Promise<void>;
@@ -38,6 +39,7 @@ export const AuthContext = createContext<AuthContextData>(
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [user, setUser] = useState<object | undefined>(undefined);
+  const [accessToken, setAccessToken] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     async function loadStorageData() {
@@ -47,6 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (storagedUser && storagedToken) {
         setUser(JSON.parse(storagedUser));
+        setAccessToken(storagedToken);
       }
 
       SplashScreen.hideAsync();
@@ -95,7 +98,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <AuthContext.Provider
-      value={{ signed: !!user, user, signIn, signOut, register }}
+      value={{ signed: !!user, user, accessToken, signIn, signOut, register }}
     >
       {children}
     </AuthContext.Provider>

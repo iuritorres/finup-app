@@ -1,55 +1,144 @@
-import { CustomStatusBar } from "@/components/CustomStatusBar";
-import MoneyAmountCard from "@/components/MoneyAmountCard";
+import {
+  Button,
+  CustomStatusBar,
+  MoneyAmountCard,
+  Subtitle,
+  Title,
+  TransactionInline,
+} from "@/components";
 import { getTransactions } from "@/functions/api/transactions";
+import { getMonthNameFromDate } from "@/functions/utils";
+import useAuth from "@/hooks/useAuth";
+import { Transaction } from "@/types";
+import { TransactionType } from "@/types/enums";
 import { useQuery } from "@tanstack/react-query";
-import { Text, View } from "react-native";
+import { useFocusEffect } from "expo-router";
+import { useMemo } from "react";
+import {
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { AppStyles } from "../../../AppStyles";
+import Toast from "react-native-toast-message";
 
 export default function Transactions() {
-  const { data: transactions, error } = useQuery({
+  const { accessToken } = useAuth();
+
+  const {
+    data: transactions,
+    error,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["transactions"],
-    queryFn: getTransactions,
+    queryFn: async () => await getTransactions(accessToken!),
+  });
+
+  const { totalIncomes, totalExpenses } = useMemo(() => {
+    if (!transactions)
+      return { totalIncomes: undefined, totalExpenses: undefined };
+
+    return transactions.reduce(
+      (
+        acc: { totalIncomes: number; totalExpenses: number },
+        transaction: Transaction
+      ) => {
+        if (transaction.type === TransactionType.INCOME) {
+          acc.totalIncomes += transaction.amount;
+        } else {
+          acc.totalExpenses += transaction.amount;
+        }
+
+        return acc;
+      },
+      { totalIncomes: 0, totalExpenses: 0 }
+    );
+  }, [transactions]);
+
+  if (error) {
+    Toast.show({
+      visibilityTime: 5000,
+      type: "error",
+      text1: "Erro",
+      text2: "Não foi possível carregar as transações",
+    });
+  }
+
+  useFocusEffect(() => {
+    refetch();
   });
 
   return (
-    <SafeAreaView style={[AppStyles.backgroundDark, AppStyles.container]}>
-      <CustomStatusBar barStyle="light-content" />
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+      }
+    >
+      <SafeAreaView style={styles.container}>
+        <CustomStatusBar barStyle="light-content" />
 
-      <View style={{ flexDirection: "row", gap: 24 }}>
-        <MoneyAmountCard title="Receita Total" amount={12239.56} />
-        <MoneyAmountCard title="Despesa Total" amount={3692.12} />
-      </View>
+        <Title style={styles.title}>
+          {getMonthNameFromDate(new Date(Date.now()))}
+        </Title>
 
-      <View
-        style={{
-          marginTop: 16,
-          width: "100%",
-          borderTopStartRadius: 25,
-          borderTopEndRadius: 25,
-          padding: 24,
-          backgroundColor: "#262626",
-          position: "absolute",
-          bottom: 0,
-          gap: 16,
-        }}
-      >
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text style={{ color: "#fff", fontFamily: "Poppins_600SemiBold" }}>
-            Últimas transações
-          </Text>
-          <Text style={{ color: "#610BD9", fontFamily: "Poppins_600SemiBold" }}>
-            Ver todas
-          </Text>
+        <View style={styles.amountCardContainer}>
+          <MoneyAmountCard
+            title="Receita Total"
+            amount={totalIncomes}
+            type={TransactionType.INCOME}
+          />
+          <MoneyAmountCard
+            title="Despesa Total"
+            amount={totalExpenses}
+            type={TransactionType.EXPENSE}
+          />
         </View>
 
-        <View style={{}}>
-          <Text style={{ color: "#fff" }}>test</Text>
-          <Text style={{ color: "#fff" }}>test</Text>
-          <Text style={{ color: "#fff" }}>test</Text>
-          <Text style={{ color: "#fff" }}>test</Text>
+        <Button
+          title="Adicionar Transação"
+          onPress={() => console.log("add transaction")}
+          style={{ marginTop: 32, width: "100%" }}
+        />
+
+        <View style={styles.transactionsContainer}>
+          <Subtitle>Últimas transações</Subtitle>
+
+          {transactions?.map((transaction: Transaction, index: number) => (
+            <TransactionInline
+              key={index}
+              name={transaction.name}
+              amount={transaction.amount}
+              type={transaction.type}
+              date={transaction.date}
+            />
+          ))}
         </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#121212",
+    alignItems: "center",
+  },
+  title: {
+    marginTop: 32,
+  },
+  amountCardContainer: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 32,
+  },
+  transactionsContainer: {
+    width: "100%",
+    marginTop: 32,
+  },
+});

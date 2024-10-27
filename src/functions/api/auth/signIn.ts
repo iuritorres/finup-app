@@ -12,7 +12,10 @@ interface Response {
   statusCode?: number;
 }
 
-export async function signIn({ email, password }: Params): Promise<Response> {
+export const signIn = async ({
+  email,
+  password,
+}: Params): Promise<Response> => {
   try {
     const response = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
@@ -27,4 +30,4 @@ export async function signIn({ email, password }: Params): Promise<Response> {
     console.error(error);
     throw error;
   }
-}
+};

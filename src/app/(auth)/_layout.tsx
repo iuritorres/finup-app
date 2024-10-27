@@ -1,4 +1,4 @@
-import { CustomStatusBar } from "@/components/CustomStatusBar";
+import { CustomStatusBar } from "@/components";
 import { Stack } from "expo-router";
 
 export default function Layout() {

@@ -5,7 +5,7 @@ import type {
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
 
-const BottomTabBar = (props: BottomTabBarProps) => {
+export const BottomTabBar = (props: BottomTabBarProps) => {
   const getRouterOptions = (
     key: string
   ): BottomTabNavigationOptions | undefined => {
@@ -47,5 +47,3 @@ const BottomTabBar = (props: BottomTabBarProps) => {
     </View>
   );
 };
-
-export default BottomTabBar;
