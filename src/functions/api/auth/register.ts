@@ -11,11 +11,11 @@ interface Response {
   message?: string;
 }
 
-export async function register({
+export const register = async ({
   name,
   email,
   password,
-}: Params): Promise<Response> {
+}: Params): Promise<Response> => {
   try {
     const response = await fetch(`${API_URL}/auth/register`, {
       method: "POST",
@@ -30,4 +30,4 @@ export async function register({
     console.error(error);
     throw error;
   }
-}
+};

@@ -1,4 +1,4 @@
-import BottomTabBar from "@/components/BottomTabBar";
+import { BottomTabBar } from "@/components";
 import { Tabs } from "expo-router";
 import { ArrowRightLeftIcon, House } from "lucide-react-native";
 
@@ -6,8 +6,13 @@ export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{ headerShown: false }}
-      tabBar={(props) => <BottomTabBar {...props} />}
       initialRouteName="home"
+      tabBar={(props) => <BottomTabBar {...props} />}
+      sceneContainerStyle={{
+        backgroundColor: "#121212",
+        paddingBottom: 110,
+        paddingHorizontal: 18,
+      }}
     >
       <Tabs.Screen
         name="home"

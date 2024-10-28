@@ -1,49 +1,60 @@
 import { formatMoney } from "@/functions/utils";
+import { TransactionType } from "@/types/enums";
 import { WalletMinimal } from "lucide-react-native";
 import { useMemo } from "react";
-import { Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
 type IProps = {
   title: string;
   amount: number;
+  type?: TransactionType;
 };
 
-export default function MoneyAmountCard({ title, amount }: IProps) {
-  const formattedAmount = useMemo(() => formatMoney(amount), [amount]);
+const walletColors = {
+  [TransactionType.INCOME]: "#0ACF83",
+  [TransactionType.EXPENSE]: "#FF4D4D",
+  undefined: "white",
+};
+
+export const MoneyAmountCard = ({ title, amount, type }: IProps) => {
+  const formattedAmount = useMemo(
+    () => (amount !== undefined ? formatMoney(amount) : null),
+    [amount]
+  );
 
   return (
-    <View
-      style={{
-        width: 160,
-        height: 160,
-        padding: 20,
-        borderRadius: 20,
-        backgroundColor: "#262626",
-        justifyContent: "space-between",
-      }}
-    >
+    <View style={styles.container}>
       <View style={{ gap: 8 }}>
-        <WalletMinimal color="white" size={32} />
-        <Text
-          style={{
-            color: "white",
-            fontFamily: "Poppins_400Regular",
-            fontSize: 12,
-          }}
-        >
-          {title}
-        </Text>
+        <WalletMinimal color={walletColors[type!]} size={32} />
+        <Text style={styles.title}>{title}</Text>
       </View>
 
-      <Text
-        style={{
-          color: "white",
-          fontFamily: "Poppins_600SemiBold",
-          fontSize: 18,
-        }}
-      >
-        {formattedAmount}
-      </Text>
+      {formattedAmount !== null ? (
+        <Text style={styles.amount}>{formattedAmount}</Text>
+      ) : (
+        <ActivityIndicator size="small" color="#ffffff" />
+      )}
     </View>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  container: {
+    width: 160,
+    height: 160,
+    padding: 20,
+    borderRadius: 20,
+    backgroundColor: "#262626",
+    justifyContent: "space-between",
+  },
+  title: {
+    color: "white",
+    fontFamily: "Poppins_400Regular",
+    fontSize: 12,
+  },
+  amount: {
+    color: "white",
+    fontFamily: "Poppins_600SemiBold",
+    fontSize: 18,
+  },
+});

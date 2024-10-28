@@ -1,17 +1,21 @@
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, TextProps } from "react-native";
 
-interface TitleProps {
+interface IProps extends TextProps {
   children: React.ReactNode;
 }
 
-export function Title({ children }: TitleProps) {
-  return <Text style={styles.title}>{children}</Text>;
+export function Title({ children, style, ...props }: IProps) {
+  return (
+    <Text style={[styles.title, style]} {...props}>
+      {children}
+    </Text>
+  );
 }
 
 const styles = StyleSheet.create({
   title: {
     fontSize: 28,
-    fontFamily: 'Montserrat_700Bold',
-    color: '#FFF',
+    fontFamily: "Montserrat_700Bold",
+    color: "#FFF",
   },
 });
