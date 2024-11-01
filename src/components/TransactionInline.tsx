@@ -1,27 +1,30 @@
 import { formatDate, formatMoney } from "@/functions/utils";
+import { Transaction } from "@/types";
 import { TransactionType } from "@/types/enums";
 import { StyleSheet, Text, View } from "react-native";
+import { CategoryIcon } from "./CategoryIcon";
 
 interface IProps {
-  name: string;
-  amount: number;
-  type: TransactionType;
-  date: string;
+  transaction: Transaction;
 }
 
-export const TransactionInline = ({ name, amount, type, date }: IProps) => {
-  const isExpense = type === TransactionType.EXPENSE;
+export const TransactionInline = ({ transaction }: IProps) => {
+  const isExpense = transaction.type === TransactionType.EXPENSE;
   const amountColor = isExpense ? "#FF4D4D" : "#0ACF83";
 
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.date}>{formatDate(date)}</Text>
+      <View style={styles.categoryAndLabelContainer}>
+        <CategoryIcon category={transaction.category.name} />
+
+        <View>
+          <Text style={styles.name}>{transaction.name}</Text>
+          <Text style={styles.date}>{formatDate(transaction.date)}</Text>
+        </View>
       </View>
 
       <Text style={[styles.amount, { color: amountColor }]}>
-        {isExpense && "-"} {formatMoney(amount)}
+        {isExpense && "-"} {formatMoney(transaction.amount)}
       </Text>
     </View>
   );
@@ -35,6 +38,11 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: "#333",
     paddingVertical: 16,
+  },
+  categoryAndLabelContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 16,
   },
   name: {
     color: "#fff",

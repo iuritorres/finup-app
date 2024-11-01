@@ -8,13 +8,12 @@ import {
   View,
 } from "react-native";
 
-interface CustomInputProps {
+interface IProps extends TextInputProps {
   fontAwesomeIcon?: string | undefined;
   error?: string;
-  placeholder: string;
 }
 
-export const Input: React.FC<TextInputProps & CustomInputProps> = ({
+export const Input: React.FC<IProps> = ({
   fontAwesomeIcon,
   error,
   ...props
@@ -26,7 +25,9 @@ export const Input: React.FC<TextInputProps & CustomInputProps> = ({
       <View
         style={[styles.inputWrapper, isFocused && styles.inputWrapperOnFocus]}
       >
-        <FontAwesome6 name={fontAwesomeIcon} size={24} color="#98939E" />
+        {fontAwesomeIcon && (
+          <FontAwesome6 name={fontAwesomeIcon} size={24} color="#98939E" />
+        )}
 
         <TextInput
           placeholderTextColor="#98939E"
@@ -47,15 +48,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 18,
-    paddingHorizontal: 14,
+    paddingHorizontal: 24,
     paddingVertical: 4,
     borderBottomWidth: 1,
+    borderRadius: 6,
     borderBottomColor: "#808080",
   },
   inputWrapperOnFocus: {
     backgroundColor: "#262626",
     borderBottomWidth: 0,
-    borderRadius: 16,
+    borderRadius: 12,
   },
   textInput: {
     fontSize: 16,

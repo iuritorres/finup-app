@@ -40,10 +40,11 @@ export const MoneyAmountCard = ({ title, amount, type }: IProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 160,
+    flexGrow: 1,
+    flexBasis: 0,
     height: 160,
     padding: 20,
-    borderRadius: 20,
+    borderRadius: 12,
     backgroundColor: "#262626",
     justifyContent: "space-between",
   },

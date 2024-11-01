@@ -6,5 +6,8 @@ export interface Transaction {
   type: TransactionType;
   date: string;
   categoryId: string;
+  category: {
+    name: string;
+  };
   userId: string;
 }

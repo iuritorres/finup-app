@@ -8,11 +8,6 @@ export default function TabsLayout() {
       screenOptions={{ headerShown: false }}
       initialRouteName="home"
       tabBar={(props) => <BottomTabBar {...props} />}
-      sceneContainerStyle={{
-        backgroundColor: "#121212",
-        paddingBottom: 110,
-        paddingHorizontal: 18,
-      }}
     >
       <Tabs.Screen
         name="home"

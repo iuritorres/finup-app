@@ -12,13 +12,14 @@ import useAuth from "@/hooks/useAuth";
 import { Transaction } from "@/types";
 import { TransactionType } from "@/types/enums";
 import { useQuery } from "@tanstack/react-query";
-import { useFocusEffect } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { RefreshControl, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 
 export default function Transactions() {
+  const router = useRouter();
   const { accessToken } = useAuth();
 
   const {
@@ -31,9 +32,11 @@ export default function Transactions() {
     queryFn: async () => await getTransactions(accessToken!),
   });
 
+  console.log("transactions", transactions);
+
   const { totalIncomes, totalExpenses } = useMemo(() => {
-    if (!transactions)
-      return { totalIncomes: undefined, totalExpenses: undefined };
+    if (!Array.isArray(transactions))
+      return { totalIncomes: 0, totalExpenses: 0 };
 
     return transactions.reduce(
       (
@@ -94,7 +97,7 @@ export default function Transactions() {
 
         <Button
           title="Adicionar Transação"
-          onPress={() => console.log("add transaction")}
+          onPress={() => router.navigate("/(tabs)/transactions/create")}
           style={{ marginTop: 32, width: "100%" }}
         />
 
@@ -102,13 +105,7 @@ export default function Transactions() {
           <Subtitle>Últimas transações</Subtitle>
 
           {transactions?.map((transaction: Transaction, index: number) => (
-            <TransactionInline
-              key={index}
-              name={transaction.name}
-              amount={transaction.amount}
-              type={transaction.type}
-              date={transaction.date}
-            />
+            <TransactionInline key={index} transaction={transaction} />
           ))}
         </View>
       </SafeAreaView>
@@ -128,7 +125,7 @@ const styles = StyleSheet.create({
   amountCardContainer: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between",
+    gap: 16,
     marginTop: 32,
   },
   transactionsContainer: {

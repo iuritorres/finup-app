@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#121212",
+    paddingHorizontal: 18,
     // backgroundColor: AppStyles.colors.primary,
   },
   text: {

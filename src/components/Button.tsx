@@ -5,7 +5,7 @@ import {
   Text,
   TouchableOpacity,
   ViewStyle,
-} from 'react-native';
+} from "react-native";
 
 type CustomButtonProps = ButtonProps & {
   style?: StyleProp<ViewStyle>;
@@ -25,16 +25,16 @@ export const Button: React.FC<CustomButtonProps> = ({
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#610BD9',
+    backgroundColor: "#610BD9",
     height: 62,
-    borderRadius: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 16,
-    fontFamily: 'Montserrat_700Bold',
-    textAlign: 'center',
+    fontFamily: "Montserrat_700Bold",
+    textAlign: "center",
   },
 });

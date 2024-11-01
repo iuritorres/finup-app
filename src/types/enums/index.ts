@@ -1,2 +1,3 @@
 export * from "./authErrors";
-export * from "./TransactionType";
+export * from "./categoryIcons";
+export * from "./transactionType";
