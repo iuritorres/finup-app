@@ -1,5 +1,6 @@
-import { CategoryIcons } from "@/types/enums";
-import { CircleHelp } from "lucide-react-native";
+import { CategoryIcons } from '@/types/enums';
+import { CircleHelp } from 'lucide-react-native';
+import { StyleSheet, Text } from 'react-native';
 
 interface IProps {
   category: string;
@@ -9,5 +10,17 @@ export const CategoryIcon = ({ category }: IProps) => {
   const categoryKey = category.toLowerCase() as keyof typeof CategoryIcons;
   const Icon = CategoryIcons[categoryKey] || CircleHelp;
 
-  return <Icon color="#fff" size={26} />;
+  return (
+    <Text style={style.container}>
+      <Icon size={26} color='#fff' />
+    </Text>
+  );
 };
+
+const style = StyleSheet.create({
+  container: {
+    backgroundColor: '#262626',
+    borderRadius: 8,
+    padding: 8,
+  },
+});

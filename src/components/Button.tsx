@@ -5,36 +5,56 @@ import {
   Text,
   TouchableOpacity,
   ViewStyle,
-} from "react-native";
+} from 'react-native';
 
-type CustomButtonProps = ButtonProps & {
+interface CustomButtonProps extends ButtonProps {
+  title: string;
   style?: StyleProp<ViewStyle>;
-};
+  icon?: React.ReactNode;
+  iconBefore?: React.ReactNode;
+  iconAfter?: React.ReactNode;
+}
 
-export const Button: React.FC<CustomButtonProps> = ({
+export const Button = ({
   title,
   style,
+  icon,
+  iconBefore,
+  iconAfter,
   ...props
-}) => {
+}: CustomButtonProps) => {
   return (
-    <TouchableOpacity {...props} style={[styles.button, style]}>
-      <Text style={styles.buttonText}>{title}</Text>
+    <TouchableOpacity
+      {...props}
+      style={[
+        styles.button,
+        style,
+        { justifyContent: iconBefore ? 'flex-start' : 'center' },
+        { justifyContent: iconAfter ? 'space-between' : 'center' },
+        { width: icon ? 0 : '100%' },
+      ]}
+    >
+      {iconBefore}
+      {icon ?? <Text style={styles.buttonText}>{title.toUpperCase()}</Text>}
+      {iconAfter}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#610BD9",
+    backgroundColor: '#610BD9',
     height: 62,
     borderRadius: 12,
-    alignItems: "center",
-    justifyContent: "center",
+    paddingHorizontal: 32,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 24,
   },
   buttonText: {
-    color: "#FFFFFF",
+    color: '#FFFFFF',
     fontSize: 16,
-    fontFamily: "Montserrat_700Bold",
-    textAlign: "center",
+    fontFamily: 'Montserrat_700Bold',
+    textAlign: 'center',
   },
 });

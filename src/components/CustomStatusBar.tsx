@@ -1,23 +1,23 @@
-import type { StatusBarStyle } from "react-native";
-import { Platform, StatusBar, View } from "react-native";
-import Constants from "expo-constants";
+import type { StatusBarStyle } from 'react-native';
+import { Platform, StatusBar, View } from 'react-native';
+import Constants from 'expo-constants';
 
-interface Iprops {
+interface IProps {
   backgroundColor?: string;
   barStyle?: StatusBarStyle | null;
-  position?: "absolute" | "relative" | "static";
+  position?: 'absolute' | 'relative' | 'static';
 }
 
 export const CustomStatusBar = ({
   backgroundColor,
   barStyle,
-  position = "absolute",
-}: Iprops) => {
+  position = 'absolute',
+}: IProps) => {
   const statusBarColor = backgroundColor ? backgroundColor : undefined;
 
   return (
     <>
-      {Platform.OS === "ios" && (
+      {Platform.OS === 'ios' && (
         <View
           style={{
             position: position,

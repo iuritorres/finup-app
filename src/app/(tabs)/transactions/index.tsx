@@ -13,6 +13,7 @@ import { Transaction } from '@/types';
 import { TransactionType } from '@/types/enums';
 import { useQuery } from '@tanstack/react-query';
 import { useFocusEffect, useRouter } from 'expo-router';
+import { Plus } from 'lucide-react-native';
 import { useMemo } from 'react';
 import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -62,6 +63,10 @@ export default function Transactions() {
     });
   }
 
+  const onTransactionPress = (transaction: Transaction) => {
+    console.log('Clicked on transaction', transaction.id);
+  };
+
   useFocusEffect(() => {
     refetch();
   });
@@ -93,19 +98,33 @@ export default function Transactions() {
           />
         </View>
 
-        <Button
-          title='Adicionar Transação'
-          onPress={() => router.navigate('/(tabs)/transactions/create')}
-          style={{ marginTop: 32, width: '100%' }}
-        />
+        <View style={styles.lastTransactionsTitle}>
+          <Subtitle>Últimas transações</Subtitle>
+          <Button
+            title='Adicionar Transação'
+            icon={<Plus size={24} color='white' />}
+            onPress={() => router.navigate('/(tabs)/transactions/create')}
+          />
+        </View>
 
         <View style={styles.transactionsContainer}>
-          <Subtitle>Últimas transações</Subtitle>
-
-          {transactions &&
-            transactions?.map((transaction: Transaction, index: number) => (
-              <TransactionInline key={index} transaction={transaction} />
-            ))}
+          {transactions?.length === 0 ? (
+            <Subtitle style={styles.emptyTransactionsText}>
+              Você ainda não{'\n'}
+              possui transações...{'\n'}
+              😢
+            </Subtitle>
+          ) : (
+            <>
+              {transactions?.map((transaction: Transaction) => (
+                <TransactionInline
+                  key={transaction.id}
+                  transaction={transaction}
+                  onPress={onTransactionPress}
+                />
+              ))}
+            </>
+          )}
         </View>
       </SafeAreaView>
     </ScrollView>
@@ -117,6 +136,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#121212',
     alignItems: 'center',
+    paddingBottom: 110,
   },
   title: {
     marginTop: 32,
@@ -127,8 +147,20 @@ const styles = StyleSheet.create({
     gap: 16,
     marginTop: 32,
   },
+  lastTransactionsTitle: {
+    marginTop: 32,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   transactionsContainer: {
     width: '100%',
-    marginTop: 32,
+    marginTop: 16,
+  },
+  emptyTransactionsText: {
+    alignSelf: 'center',
+    textAlign: 'center',
+    paddingVertical: 66,
   },
 });

@@ -1,8 +1,9 @@
-import * as auth from "@/functions/api/auth";
-import { AuthErrors } from "@/types/enums";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { SplashScreen, useRouter } from "expo-router";
-import { createContext, useEffect, useState } from "react";
+import * as auth from '@/functions/api/auth';
+import { User } from '@/types';
+import { AuthErrors } from '@/types/enums';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SplashScreen, useRouter } from 'expo-router';
+import { createContext, useEffect, useState } from 'react';
 
 interface SignInParams {
   email: string;
@@ -25,7 +26,7 @@ interface RegisterParams {
 
 interface AuthContextData {
   signed: boolean;
-  user?: object;
+  user?: User;
   accessToken?: string;
   signIn: ({ email, password }: SignInParams) => Promise<void>;
   signOut: () => Promise<void>;
@@ -38,13 +39,13 @@ export const AuthContext = createContext<AuthContextData>(
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const [user, setUser] = useState<object | undefined>(undefined);
+  const [user, setUser] = useState<User | undefined>(undefined);
   const [accessToken, setAccessToken] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     async function loadStorageData() {
       const [[, storagedUser], [, storagedToken]] = await AsyncStorage.multiGet(
-        ["@finup:user", "@finup:access_token"]
+        ['@finup:user', '@finup:access_token']
       );
 
       if (storagedUser && storagedToken) {
@@ -63,22 +64,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const response = await auth.signIn({ email, password });
 
-    if (response.statusCode?.toString().startsWith("4")) {
+    if (response.statusCode?.toString().startsWith('4')) {
       onError?.(AuthErrors.CredentialsSignin);
       return;
     }
 
-    setUser(response.user);
+    setUser(response.user as User);
     onSuccess?.();
 
-    await AsyncStorage.setItem("@finup:user", JSON.stringify(response.user));
-    await AsyncStorage.setItem("@finup:access_token", response.access_token!);
+    await AsyncStorage.setItem('@finup:user', JSON.stringify(response.user));
+    await AsyncStorage.setItem('@finup:access_token', response.access_token!);
   }
 
   async function signOut() {
     await AsyncStorage.clear().then(() => {
       setUser(undefined);
-      router.push("/");
+      router.push('/');
     });
   }
 
@@ -92,7 +93,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    setUser(response.user);
+    setUser(response.user as User);
     onSuccess?.();
   }
 

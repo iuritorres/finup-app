@@ -94,7 +94,10 @@ export default function CreateTransaction() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollViewContentContainerStyle}
+      >
         <KeyboardAvoidingView behavior='position'>
           <TouchableOpacity onPress={() => router.back()}>
             <FontAwesome6
@@ -186,12 +189,9 @@ export default function CreateTransaction() {
               )}
             />
           </View>
-
-          <Button
-            title='CRIAR'
-            onPress={handleSubmit(handleCreateTransaction)}
-          />
         </KeyboardAvoidingView>
+
+        <Button title='CRIAR' onPress={handleSubmit(handleCreateTransaction)} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -201,6 +201,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#121212',
+  },
+  scrollViewContentContainerStyle: {
+    height: '100%',
+    justifyContent: 'space-between',
+    paddingBottom: 24,
   },
   inputsContainer: {
     marginVertical: 24,

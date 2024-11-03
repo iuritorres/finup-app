@@ -1,19 +1,19 @@
-import { formatMoney } from "@/functions/utils";
-import { TransactionType } from "@/types/enums";
-import { WalletMinimal } from "lucide-react-native";
-import { useMemo } from "react";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { formatMoney } from '@/functions/utils';
+import { TransactionType } from '@/types/enums';
+import { WalletMinimal } from 'lucide-react-native';
+import { useMemo } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
-type IProps = {
+interface IProps {
   title: string;
   amount: number;
   type?: TransactionType;
-};
+}
 
-const walletColors = {
-  [TransactionType.INCOME]: "#0ACF83",
-  [TransactionType.EXPENSE]: "#FF4D4D",
-  undefined: "white",
+const amountColors = {
+  [TransactionType.INCOME]: '#0ACF83',
+  [TransactionType.EXPENSE]: '#FF4D4D',
+  undefined: 'white',
 };
 
 export const MoneyAmountCard = ({ title, amount, type }: IProps) => {
@@ -24,15 +24,17 @@ export const MoneyAmountCard = ({ title, amount, type }: IProps) => {
 
   return (
     <View style={styles.container}>
-      <View style={{ gap: 8 }}>
-        <WalletMinimal color={walletColors[type!]} size={32} />
+      <View style={styles.walletContainer}>
+        <WalletMinimal color='white' size={32} />
         <Text style={styles.title}>{title}</Text>
       </View>
 
       {formattedAmount !== null ? (
-        <Text style={styles.amount}>{formattedAmount}</Text>
+        <Text style={[styles.amount, { color: amountColors[type!] }]}>
+          {formattedAmount}
+        </Text>
       ) : (
-        <ActivityIndicator size="small" color="#ffffff" />
+        <ActivityIndicator size='small' color='#ffffff' />
       )}
     </View>
   );
@@ -45,17 +47,20 @@ const styles = StyleSheet.create({
     height: 160,
     padding: 20,
     borderRadius: 12,
-    backgroundColor: "#262626",
-    justifyContent: "space-between",
+    backgroundColor: '#262626',
+    justifyContent: 'space-between',
+  },
+  walletContainer: {
+    gap: 8,
   },
   title: {
-    color: "white",
-    fontFamily: "Poppins_400Regular",
+    color: 'white',
+    fontFamily: 'Poppins_400Regular',
     fontSize: 12,
   },
   amount: {
-    color: "white",
-    fontFamily: "Poppins_600SemiBold",
+    color: 'white',
+    fontFamily: 'Poppins_600SemiBold',
     fontSize: 18,
   },
 });

@@ -1,6 +1,7 @@
-import { TransactionType } from "./enums";
+import { TransactionType } from './enums';
 
 export interface Transaction {
+  id: string;
   name: string;
   amount: number;
   type: TransactionType;
