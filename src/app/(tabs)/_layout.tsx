@@ -1,29 +1,37 @@
-import { BottomTabBar } from "@/components";
-import { Tabs } from "expo-router";
-import { ArrowRightLeftIcon, House } from "lucide-react-native";
+import { AppStyles } from '@/AppStyles';
+import { BottomTabBar } from '@/components';
+import { Tabs } from 'expo-router';
+import { ArrowRightLeftIcon, House } from 'lucide-react-native';
 
 export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{ headerShown: false }}
-      initialRouteName="home"
+      initialRouteName='home'
       tabBar={(props) => <BottomTabBar {...props} />}
     >
       <Tabs.Screen
-        name="home"
+        name='home'
         options={{
           tabBarIcon: ({ focused }) => (
-            <House color={!focused ? "#FFF" : "#0ACF83"} size={26} />
+            <House
+              color={
+                !focused ? AppStyles.colors.textPrimary : AppStyles.colors.green
+              }
+              size={26}
+            />
           ),
         }}
       />
 
       <Tabs.Screen
-        name="transactions"
+        name='transactions'
         options={{
           tabBarIcon: ({ focused }) => (
             <ArrowRightLeftIcon
-              color={!focused ? "#FFF" : "#0ACF83"}
+              color={
+                !focused ? AppStyles.colors.textPrimary : AppStyles.colors.green
+              }
               size={26}
             />
           ),

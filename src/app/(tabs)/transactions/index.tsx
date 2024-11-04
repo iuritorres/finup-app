@@ -1,3 +1,4 @@
+import { AppStyles } from '@/AppStyles';
 import {
   Button,
   CustomStatusBar,
@@ -134,9 +135,10 @@ export default function Transactions() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212',
     alignItems: 'center',
+    paddingHorizontal: 18,
     paddingBottom: 110,
+    backgroundColor: AppStyles.colors.backgroundPrimary,
   },
   title: {
     marginTop: 32,

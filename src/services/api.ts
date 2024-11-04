@@ -1,7 +1,10 @@
-import Constants from "expo-constants";
+import Constants from 'expo-constants';
 
 const debbugerHost = Constants.expoConfig?.hostUri;
-const localhost = debbugerHost?.split(":")[0];
+const localhost = debbugerHost?.split(':')[0];
+const port = 3000;
 
 export const API_URL =
-  process.env.NODE_ENV === "development" ? `http://${localhost}:8080/api` : "";
+  process.env.NODE_ENV === 'development'
+    ? `http://${localhost}:${port}/api`
+    : '';

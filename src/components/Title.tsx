@@ -1,4 +1,5 @@
-import { StyleSheet, Text, TextProps } from "react-native";
+import { AppStyles } from '@/AppStyles';
+import { StyleSheet, Text, TextProps } from 'react-native';
 
 interface IProps extends TextProps {
   children: React.ReactNode;
@@ -15,7 +16,7 @@ export function Title({ children, style, ...props }: IProps) {
 const styles = StyleSheet.create({
   title: {
     fontSize: 28,
-    fontFamily: "Montserrat_700Bold",
-    color: "#FFF",
+    fontFamily: 'Montserrat_700Bold',
+    color: AppStyles.colors.textPrimary,
   },
 });

@@ -1,4 +1,5 @@
-import { StyleSheet, Text, TextProps } from "react-native";
+import { AppStyles } from '@/AppStyles';
+import { StyleSheet, Text, TextProps } from 'react-native';
 
 interface IProps extends TextProps {
   children: React.ReactNode;
@@ -15,7 +16,7 @@ export const Subtitle = ({ children, style, ...props }: IProps) => {
 const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
-    fontFamily: "Poppins_600SemiBold",
-    color: "#98979E",
+    fontFamily: 'Poppins_600SemiBold',
+    color: AppStyles.colors.textSecondary,
   },
 });

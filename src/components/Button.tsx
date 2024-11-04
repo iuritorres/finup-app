@@ -1,3 +1,4 @@
+import { AppStyles } from '@/AppStyles';
 import {
   ButtonProps,
   StyleProp,
@@ -43,7 +44,7 @@ export const Button = ({
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#610BD9',
+    backgroundColor: AppStyles.colors.purple,
     height: 62,
     borderRadius: 12,
     paddingHorizontal: 32,
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     gap: 24,
   },
   buttonText: {
-    color: '#FFFFFF',
+    color: AppStyles.colors.textPrimary,
     fontSize: 16,
     fontFamily: 'Montserrat_700Bold',
     textAlign: 'center',

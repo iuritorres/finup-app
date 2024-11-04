@@ -1,3 +1,4 @@
+import { AppStyles } from '@/AppStyles';
 import { formatMoney } from '@/functions/utils';
 import { TransactionType } from '@/types/enums';
 import { WalletMinimal } from 'lucide-react-native';
@@ -11,9 +12,9 @@ interface IProps {
 }
 
 const amountColors = {
-  [TransactionType.INCOME]: '#0ACF83',
-  [TransactionType.EXPENSE]: '#FF4D4D',
-  undefined: 'white',
+  [TransactionType.INCOME]: AppStyles.colors.green,
+  [TransactionType.EXPENSE]: AppStyles.colors.red,
+  undefined: AppStyles.colors.textPrimary,
 };
 
 export const MoneyAmountCard = ({ title, amount, type }: IProps) => {
@@ -34,7 +35,7 @@ export const MoneyAmountCard = ({ title, amount, type }: IProps) => {
           {formattedAmount}
         </Text>
       ) : (
-        <ActivityIndicator size='small' color='#ffffff' />
+        <ActivityIndicator size='small' color={AppStyles.colors.textPrimary} />
       )}
     </View>
   );
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
     height: 160,
     padding: 20,
     borderRadius: 12,
-    backgroundColor: '#262626',
+    backgroundColor: AppStyles.colors.backgroundSecondary,
     justifyContent: 'space-between',
   },
   walletContainer: {

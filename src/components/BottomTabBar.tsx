@@ -1,3 +1,4 @@
+import { AppStyles } from '@/AppStyles';
 import type {
   BottomTabBarProps,
   BottomTabNavigationOptions,
@@ -28,7 +29,7 @@ export const BottomTabBar = (props: BottomTabBarProps) => {
     <View
       style={{
         alignItems: 'center',
-        backgroundColor: '#610BD9',
+        backgroundColor: AppStyles.colors.purple,
         flexDirection: 'row',
         justifyContent: 'space-around',
         borderRadius: 12,
@@ -51,7 +52,7 @@ export const BottomTabBar = (props: BottomTabBarProps) => {
         >
           {getRouterOptions(route.key)?.tabBarIcon?.({
             focused: props.state.index === index,
-            color: '#fff',
+            color: AppStyles.colors.textPrimary,
             size: 24,
           })}
         </TouchableOpacity>

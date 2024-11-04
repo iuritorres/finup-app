@@ -1,3 +1,4 @@
+import { AppStyles } from '@/AppStyles';
 import { Button, Input, Select, Title } from '@/components';
 import { categories } from '@/constants';
 import { createTransaction } from '@/functions/api/transactions';
@@ -103,7 +104,7 @@ export default function CreateTransaction() {
             <FontAwesome6
               name='arrow-left'
               size={36}
-              color='#98979E'
+              color={AppStyles.colors.textSecondary}
               style={{ marginVertical: 24 }}
             />
           </TouchableOpacity>
@@ -200,7 +201,8 @@ export default function CreateTransaction() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212',
+    paddingHorizontal: 18,
+    backgroundColor: AppStyles.colors.backgroundPrimary,
   },
   scrollViewContentContainerStyle: {
     height: '100%',

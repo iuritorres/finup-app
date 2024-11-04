@@ -1,10 +1,10 @@
-import { AppStyles } from "@/AppStyles";
-import { Button, Input, Subtitle, Title } from "@/components";
-import { getLoginErrorMessage } from "@/functions/api/auth";
-import useAuth from "@/hooks/useAuth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "expo-router";
-import { Controller, useForm } from "react-hook-form";
+import { AppStyles } from '@/AppStyles';
+import { Button, Input, Subtitle, Title } from '@/components';
+import { getLoginErrorMessage } from '@/functions/api/auth';
+import useAuth from '@/hooks/useAuth';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'expo-router';
+import { Controller, useForm } from 'react-hook-form';
 import {
   Image,
   Keyboard,
@@ -14,15 +14,15 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from "react-native";
-import Toast from "react-native-toast-message";
-import { z } from "zod";
+} from 'react-native';
+import Toast from 'react-native-toast-message';
+import { z } from 'zod';
 
 export const loginFormSchema = z.object({
   email: z
-    .string({ required_error: "Campo obrigatório" })
-    .email("E-mail inválido"),
-  password: z.string({ required_error: "Campo obrigatório" }),
+    .string({ required_error: 'Campo obrigatório' })
+    .email('E-mail inválido'),
+  password: z.string({ required_error: 'Campo obrigatório' }),
 });
 
 export default function LoginScreen() {
@@ -48,14 +48,14 @@ export default function LoginScreen() {
       password,
       options: {
         onSuccess: () => {
-          router.replace("/(tabs)/home");
+          router.replace('/(tabs)/home');
         },
         onError: (error) => {
           Toast.show({
             visibilityTime: 5000,
-            type: "error",
-            text1: "Erro",
-            text2: getLoginErrorMessage(error) ?? "Erro desconhecido",
+            type: 'error',
+            text1: 'Erro',
+            text2: getLoginErrorMessage(error) ?? 'Erro desconhecido',
           });
         },
       },
@@ -63,12 +63,10 @@ export default function LoginScreen() {
   }
 
   return (
-    <SafeAreaView
-      style={[AppStyles.backgroundDark, AppStyles.screenPadding, { flex: 1 }]}
-    >
-      <KeyboardAvoidingView behavior="position">
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView behavior='position'>
         <Image
-          source={require("@/assets/images/login-page.png")}
+          source={require('@/assets/images/login-page.png')}
           style={styles.image}
         />
 
@@ -77,7 +75,7 @@ export default function LoginScreen() {
 
         <View style={styles.inputsContainer}>
           <Controller
-            name="email"
+            name='email'
             rules={{ required: true }}
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
@@ -86,16 +84,16 @@ export default function LoginScreen() {
                 onChangeText={(value) => onChange(value)}
                 value={value}
                 error={errors.email?.message}
-                fontAwesomeIcon="envelope"
-                placeholder="Digite seu e-mail"
-                textContentType="emailAddress"
-                autoComplete="email"
+                fontAwesomeIcon='envelope'
+                placeholder='Digite seu e-mail'
+                textContentType='emailAddress'
+                autoComplete='email'
               />
             )}
           />
 
           <Controller
-            name="password"
+            name='password'
             rules={{ required: true }}
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
@@ -104,10 +102,10 @@ export default function LoginScreen() {
                 onChangeText={(value) => onChange(value)}
                 value={value}
                 error={errors.password?.message}
-                fontAwesomeIcon="lock"
-                placeholder="Digite sua senha"
-                textContentType="password"
-                autoComplete="password"
+                fontAwesomeIcon='lock'
+                placeholder='Digite sua senha'
+                textContentType='password'
+                autoComplete='password'
                 secureTextEntry
               />
             )}
@@ -115,19 +113,19 @@ export default function LoginScreen() {
         </View>
 
         <Button
-          title="ENTRAR"
+          title='ENTRAR'
           style={{ marginTop: 24 }}
           onPress={handleSubmit(handleSignIn)}
         />
 
         <View style={styles.registerContainer}>
-          <TouchableOpacity onPress={() => router.push("/register")}>
+          <TouchableOpacity onPress={() => router.push('/register')}>
             <Text style={styles.forgotPassword}>Esqueci a senha</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => router.push("/register")}>
+          <TouchableOpacity onPress={() => router.push('/register')}>
             <Text style={styles.register}>
-              Não tem uma conta?{" "}
+              Não tem uma conta?{' '}
               <Text style={styles.registerLink}>Crie aqui.</Text>
             </Text>
           </TouchableOpacity>
@@ -138,41 +136,46 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: AppStyles.colors.backgroundPrimary,
+    padding: 24,
+  },
   image: {
     width: 274,
     height: 274,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   inputsContainer: {
     marginTop: 12,
     gap: 16,
   },
   forgotPassword: {
-    color: "#FAFAFA",
+    color: AppStyles.colors.backgroundPrimary,
     fontSize: 14,
-    fontFamily: "Poppins_700Bold",
-    textDecorationLine: "underline",
-    textAlign: "center",
+    fontFamily: 'Poppins_700Bold',
+    textDecorationLine: 'underline',
+    textAlign: 'center',
   },
   registerContainer: {
     marginTop: 30,
-    alignItems: "center",
+    alignItems: 'center',
     gap: 14,
   },
   register: {
-    color: "#FAFAFA",
+    color: AppStyles.colors.backgroundPrimary,
     fontSize: 14,
-    fontFamily: "Poppins_400Regular",
-    textAlign: "center",
+    fontFamily: 'Poppins_400Regular',
+    textAlign: 'center',
   },
   registerLink: {
-    textDecorationLine: "underline",
-    fontFamily: "Poppins_700Bold",
+    textDecorationLine: 'underline',
+    fontFamily: 'Poppins_700Bold',
   },
   errorMessage: {
-    color: "#FF7262",
+    color: AppStyles.colors.red,
     fontSize: 14,
-    fontFamily: "Poppins_400Regular",
-    textAlign: "center",
+    fontFamily: 'Poppins_400Regular',
+    textAlign: 'center',
   },
 });

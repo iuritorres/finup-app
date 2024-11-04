@@ -1,3 +1,4 @@
+import { AppStyles } from '@/AppStyles';
 import { Button, Subtitle } from '@/components';
 import useAuth from '@/hooks/useAuth';
 import useUser from '@/hooks/useUser';
@@ -20,9 +21,8 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212',
+    backgroundColor: AppStyles.colors.backgroundPrimary,
     paddingHorizontal: 18,
     paddingBottom: 110,
-    // backgroundColor: AppStyles.colors.primary,
   },
 });

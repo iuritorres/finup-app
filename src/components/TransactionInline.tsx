@@ -1,3 +1,4 @@
+import { AppStyles } from '@/AppStyles';
 import { formatDate, formatMoney } from '@/functions/utils';
 import { Transaction } from '@/types';
 import { TransactionType } from '@/types/enums';
@@ -11,7 +12,7 @@ interface IProps {
 
 export const TransactionInline = ({ transaction, onPress }: IProps) => {
   const isExpense = transaction.type === TransactionType.EXPENSE;
-  const amountColor = isExpense ? '#FF4D4D' : '#0ACF83';
+  const amountColor = isExpense ? AppStyles.colors.red : AppStyles.colors.green;
 
   return (
     <TouchableHighlight
@@ -58,11 +59,11 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   name: {
-    color: '#fff',
+    color: AppStyles.colors.textPrimary,
     fontFamily: 'Poppins_600SemiBold',
   },
   date: {
-    color: '#808080',
+    color: AppStyles.colors.textSecondary,
     fontFamily: 'Poppins_400Regular',
   },
   amount: {

@@ -1,15 +1,5 @@
 import { Stack } from 'expo-router';
 
 export default function TransactionsLayout() {
-  return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-        contentStyle: {
-          backgroundColor: '#121212',
-          paddingHorizontal: 18,
-        },
-      }}
-    />
-  );
+  return <Stack screenOptions={{ headerShown: false }} />;
 }

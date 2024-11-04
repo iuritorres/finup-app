@@ -1,6 +1,6 @@
+import Constants from 'expo-constants';
 import type { StatusBarStyle } from 'react-native';
 import { Platform, StatusBar, View } from 'react-native';
-import Constants from 'expo-constants';
 
 interface IProps {
   backgroundColor?: string;

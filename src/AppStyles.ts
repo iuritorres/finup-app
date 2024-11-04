@@ -1,14 +1,11 @@
-import { StyleSheet } from "react-native";
-
-export const AppStyles = StyleSheet.create({
-  backgroundDark: {
-    backgroundColor: "#121212",
+export const AppStyles = {
+  colors: {
+    backgroundPrimary: '#121212',
+    backgroundSecondary: '#262626',
+    textPrimary: '#FAFAFA',
+    textSecondary: '#98979E',
+    purple: '#610BD9',
+    green: '#0ACF83',
+    red: '#FF4D4D',
   },
-  screenPadding: {
-    padding: 24,
-  },
-  container: {
-    flex: 1,
-    alignItems: "center",
-  },
-});
+};

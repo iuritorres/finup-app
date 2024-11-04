@@ -1,7 +1,8 @@
-import { ChevronDown, ChevronUp } from "lucide-react-native";
-import { useMemo } from "react";
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
-import SelectDropdown from "react-native-select-dropdown";
+import { AppStyles } from '@/AppStyles';
+import { ChevronDown, ChevronUp } from 'lucide-react-native';
+import { useMemo } from 'react';
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import SelectDropdown from 'react-native-select-dropdown';
 
 interface IProps {
   error?: string;
@@ -12,14 +13,14 @@ interface IProps {
   onBlur?: () => void;
 }
 
-export const Select: React.FC<IProps> = ({
+export const Select = ({
   error,
   placeholder,
   items,
   value,
   onSelect,
   onBlur,
-}) => {
+}: IProps) => {
   const selectedItem = useMemo(
     () => items.find((item) => item.value === value),
     [value]
@@ -41,7 +42,7 @@ export const Select: React.FC<IProps> = ({
                   {selectedItem?.label ?? placeholder}
                 </Text>
 
-                <ChevronIcon size={24} color="#fff" />
+                <ChevronIcon size={24} color={AppStyles.colors.textPrimary} />
               </View>
             );
           }}
@@ -50,7 +51,9 @@ export const Select: React.FC<IProps> = ({
               key={index}
               style={[
                 styles.dropdownItemStyle,
-                isSelected && { backgroundColor: "#98979E" },
+                isSelected && {
+                  backgroundColor: AppStyles.colors.textSecondary,
+                },
               ]}
             >
               <Text style={styles.dropdownItemTextStyle}>{item.label}</Text>
@@ -69,45 +72,45 @@ export const Select: React.FC<IProps> = ({
 const styles = StyleSheet.create({
   dropdownButtonStyle: {
     height: 62,
-    backgroundColor: "#262626",
+    backgroundColor: AppStyles.colors.backgroundSecondary,
     borderRadius: 12,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 24,
   },
   dropdownButtonTextStyle: {
     flex: 1,
     fontSize: 18,
-    fontWeight: "500",
-    fontFamily: "Poppins_400Regular",
-    color: "#98979E",
+    fontWeight: '500',
+    fontFamily: 'Poppins_400Regular',
+    color: AppStyles.colors.textSecondary,
   },
   dropdownButtonArrowStyle: {
     fontSize: 28,
   },
   dropdownMenuStyle: {
-    backgroundColor: "#333",
+    backgroundColor: AppStyles.colors.backgroundSecondary,
     borderRadius: 8,
   },
   dropdownItemStyle: {
-    width: "100%",
-    flexDirection: "row",
+    width: '100%',
+    flexDirection: 'row',
     paddingHorizontal: 12,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     height: 62,
   },
   dropdownItemTextStyle: {
     flex: 1,
     fontSize: 18,
-    fontFamily: "Poppins_400Regular",
-    color: "#fff",
+    fontFamily: 'Poppins_400Regular',
+    color: AppStyles.colors.textPrimary,
   },
   errorMessage: {
-    color: "#FF7262",
+    color: AppStyles.colors.red,
     fontSize: 14,
-    fontFamily: "Poppins_400Regular",
+    fontFamily: 'Poppins_400Regular',
     marginLeft: 14,
   },
 });

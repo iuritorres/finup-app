@@ -1,3 +1,4 @@
+import { AppStyles } from '@/AppStyles';
 import { CategoryIcons } from '@/types/enums';
 import { CircleHelp } from 'lucide-react-native';
 import { StyleSheet, Text } from 'react-native';
@@ -12,14 +13,14 @@ export const CategoryIcon = ({ category }: IProps) => {
 
   return (
     <Text style={style.container}>
-      <Icon size={26} color='#fff' />
+      <Icon size={26} color={AppStyles.colors.textPrimary} />
     </Text>
   );
 };
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: '#262626',
+    backgroundColor: AppStyles.colors.backgroundSecondary,
     borderRadius: 8,
     padding: 8,
   },
