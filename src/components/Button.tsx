@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: AppStyles.colors.purple,
     height: 62,
-    borderRadius: 12,
+    borderRadius: AppStyles.insets.borderRadius,
     paddingHorizontal: 32,
     flexDirection: 'row',
     alignItems: 'center',

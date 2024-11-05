@@ -32,7 +32,7 @@ export const BottomTabBar = (props: BottomTabBarProps) => {
         backgroundColor: AppStyles.colors.purple,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        borderRadius: 12,
+        borderRadius: AppStyles.insets.borderRadius,
         width: '90%',
         height: 74,
         position: 'absolute',

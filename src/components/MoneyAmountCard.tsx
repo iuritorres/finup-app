@@ -26,7 +26,7 @@ export const MoneyAmountCard = ({ title, amount, type }: IProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.walletContainer}>
-        <WalletMinimal color='white' size={32} />
+        <WalletMinimal color={AppStyles.colors.textPrimary} size={32} />
         <Text style={styles.title}>{title}</Text>
       </View>
 
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     flexBasis: 0,
     height: 160,
     padding: 20,
-    borderRadius: 12,
+    borderRadius: AppStyles.insets.borderRadius,
     backgroundColor: AppStyles.colors.backgroundSecondary,
     justifyContent: 'space-between',
   },
@@ -55,12 +55,12 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   title: {
-    color: 'white',
+    color: AppStyles.colors.textPrimary,
     fontFamily: 'Poppins_400Regular',
     fontSize: 12,
   },
   amount: {
-    color: 'white',
+    color: AppStyles.colors.textPrimary,
     fontFamily: 'Poppins_600SemiBold',
     fontSize: 18,
   },

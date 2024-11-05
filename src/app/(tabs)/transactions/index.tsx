@@ -103,7 +103,7 @@ export default function Transactions() {
           <Subtitle>Últimas transações</Subtitle>
           <Button
             title='Adicionar Transação'
-            icon={<Plus size={24} color='white' />}
+            icon={<Plus size={24} color={AppStyles.colors.textPrimary} />}
             onPress={() => router.navigate('/(tabs)/transactions/create')}
           />
         </View>
@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingHorizontal: 18,
     paddingBottom: 110,
     backgroundColor: AppStyles.colors.backgroundPrimary,
   },
@@ -146,6 +145,7 @@ const styles = StyleSheet.create({
   amountCardContainer: {
     width: '100%',
     flexDirection: 'row',
+    paddingHorizontal: AppStyles.insets.screenPadding,
     gap: 16,
     marginTop: 32,
   },
@@ -155,6 +155,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingHorizontal: AppStyles.insets.screenPadding,
   },
   transactionsContainer: {
     width: '100%',

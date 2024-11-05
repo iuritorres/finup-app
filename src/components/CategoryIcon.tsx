@@ -21,7 +21,7 @@ export const CategoryIcon = ({ category }: IProps) => {
 const style = StyleSheet.create({
   container: {
     backgroundColor: AppStyles.colors.backgroundSecondary,
-    borderRadius: 8,
+    borderRadius: AppStyles.insets.borderRadius,
     padding: 8,
   },
 });

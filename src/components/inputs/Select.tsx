@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   dropdownButtonStyle: {
     height: 62,
     backgroundColor: AppStyles.colors.backgroundSecondary,
-    borderRadius: 12,
+    borderRadius: AppStyles.insets.borderRadius,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
   },
   dropdownButtonTextStyle: {
     flex: 1,
-    fontSize: 18,
     fontWeight: '500',
     fontFamily: 'Poppins_400Regular',
     color: AppStyles.colors.textSecondary,
@@ -91,12 +90,12 @@ const styles = StyleSheet.create({
   },
   dropdownMenuStyle: {
     backgroundColor: AppStyles.colors.backgroundSecondary,
-    borderRadius: 8,
+    borderRadius: AppStyles.insets.borderRadius,
   },
   dropdownItemStyle: {
     width: '100%',
     flexDirection: 'row',
-    paddingHorizontal: 12,
+    paddingHorizontal: AppStyles.insets.screenPadding,
     justifyContent: 'center',
     alignItems: 'center',
     height: 62,

@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#333',
     paddingVertical: 16,
+    paddingHorizontal: AppStyles.insets.screenPadding,
     gap: 16,
   },
   categoryAndLabelContainer: {

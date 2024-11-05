@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   forgotPassword: {
-    color: AppStyles.colors.backgroundPrimary,
+    color: AppStyles.colors.textPrimary,
     fontSize: 14,
     fontFamily: 'Poppins_700Bold',
     textDecorationLine: 'underline',
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     gap: 14,
   },
   register: {
-    color: AppStyles.colors.backgroundPrimary,
+    color: AppStyles.colors.textPrimary,
     fontSize: 14,
     fontFamily: 'Poppins_400Regular',
     textAlign: 'center',

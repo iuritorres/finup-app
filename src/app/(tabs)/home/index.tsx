@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: AppStyles.colors.backgroundPrimary,
-    paddingHorizontal: 18,
+    paddingHorizontal: AppStyles.insets.screenPadding,
     paddingBottom: 110,
   },
 });

@@ -201,7 +201,7 @@ export default function CreateTransaction() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 18,
+    paddingHorizontal: AppStyles.insets.screenPadding,
     backgroundColor: AppStyles.colors.backgroundPrimary,
   },
   scrollViewContentContainerStyle: {

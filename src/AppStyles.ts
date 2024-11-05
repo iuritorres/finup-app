@@ -1,4 +1,8 @@
 export const AppStyles = {
+  insets: {
+    screenPadding: 18,
+    borderRadius: 8,
+  },
   colors: {
     backgroundPrimary: '#121212',
     backgroundSecondary: '#262626',

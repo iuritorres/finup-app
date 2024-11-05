@@ -52,16 +52,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 4,
     borderBottomWidth: 1,
-    borderRadius: 6,
     borderBottomColor: AppStyles.colors.backgroundSecondary,
   },
   inputWrapperOnFocus: {
     backgroundColor: AppStyles.colors.backgroundSecondary,
-    borderBottomWidth: 0,
-    borderRadius: 12,
+    borderRadius: AppStyles.insets.borderRadius,
   },
   textInput: {
-    fontSize: 16,
     width: '85%',
     height: 54,
     fontFamily: 'Poppins_400Regular',
