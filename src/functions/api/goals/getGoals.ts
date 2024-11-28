@@ -1,8 +1,8 @@
 import { API_URL } from '@/services/api';
 
-export const getTransactions = async (accessToken: string) => {
+export const getGoals = async (accessToken: string) => {
   try {
-    const response = await fetch(`${API_URL}/transactions`, {
+    const response = await fetch(`${API_URL}/goals`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -10,7 +10,7 @@ export const getTransactions = async (accessToken: string) => {
       },
     });
 
-    if (!response.ok) throw new Error('Failed to fetch transactions');
+    if (!response.ok) throw new Error('Failed to fetch goals');
 
     return await response.json();
   } catch (error) {

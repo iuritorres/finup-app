@@ -25,7 +25,7 @@ export default function Transactions() {
   const { accessToken } = useAuth();
 
   const {
-    data: transactions,
+    data: transactionsData,
     error,
     isLoading,
     refetch,
@@ -34,15 +34,13 @@ export default function Transactions() {
     queryFn: async () => await getTransactions(accessToken!),
   });
 
+  const transactions = useMemo(() => transactionsData ?? [], [transactionsData]);
+
   const { totalIncomes, totalExpenses } = useMemo(() => {
-    if (!Array.isArray(transactions))
-      return { totalIncomes: 0, totalExpenses: 0 };
+    if (error || transactions.length === 0) return { totalIncomes: 0, totalExpenses: 0 };
 
     return transactions.reduce(
-      (
-        acc: { totalIncomes: number; totalExpenses: number },
-        transaction: Transaction
-      ) => {
+      (acc: { totalIncomes: number; totalExpenses: number }, transaction: Transaction) => {
         if (transaction.type === TransactionType.INCOME) {
           acc.totalIncomes += transaction.amount;
         } else {
@@ -75,16 +73,13 @@ export default function Transactions() {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      refreshControl={
-        <RefreshControl refreshing={isLoading} onRefresh={refetch} />
-      }
+      refreshControl={<RefreshControl refreshing={isLoading} onRefresh={refetch} />}
+      contentContainerStyle={{ flexGrow: 1 }}
     >
       <SafeAreaView style={styles.container}>
         <CustomStatusBar barStyle='light-content' />
 
-        <Title style={styles.title}>
-          {getMonthNameFromDate(new Date(Date.now()))}
-        </Title>
+        <Title style={styles.title}>{getMonthNameFromDate(new Date(Date.now()))}</Title>
 
         <View style={styles.amountCardContainer}>
           <MoneyAmountCard
@@ -109,7 +104,7 @@ export default function Transactions() {
         </View>
 
         <View style={styles.transactionsContainer}>
-          {transactions?.length === 0 ? (
+          {transactions.length === 0 ? (
             <Subtitle style={styles.emptyTransactionsText}>
               Você ainda não{'\n'}
               possui transações...{'\n'}

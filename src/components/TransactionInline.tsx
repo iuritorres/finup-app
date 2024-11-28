@@ -15,10 +15,7 @@ export const TransactionInline = ({ transaction, onPress }: IProps) => {
   const amountColor = isExpense ? AppStyles.colors.red : AppStyles.colors.green;
 
   return (
-    <TouchableHighlight
-      underlayColor='#333'
-      onPress={() => onPress(transaction)}
-    >
+    <TouchableHighlight underlayColor='#333' onPress={() => onPress(transaction)}>
       <View style={styles.container}>
         <View style={styles.categoryAndLabelContainer}>
           <CategoryIcon category={transaction.category.name} />

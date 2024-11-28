@@ -6,7 +6,7 @@ import useUser from '@/hooks/useUser';
 import { Transaction } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
-import { StyleSheet, useWindowDimensions } from 'react-native';
+import { RefreshControl, ScrollView, StyleSheet, useWindowDimensions } from 'react-native';
 import { PieChart } from 'react-native-chart-kit';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
@@ -49,7 +49,7 @@ export default function Home() {
   const user = useUser();
 
   const {
-    data: transactions,
+    data: transactionsData,
     error,
     isLoading,
     refetch,
@@ -58,35 +58,33 @@ export default function Home() {
     queryFn: async () => await getTransactions(accessToken!),
   });
 
-  const pieChartData = useMemo(
-    () =>
-      Object.values(
-        transactions.reduce(
-          (acc: { [key: string]: any }, transaction: Transaction) => {
-            if (!Array.isArray(transactions)) return acc;
-            if (transaction.type === 'INCOME') return acc;
+  const transactions = useMemo(() => transactionsData ?? [], [transactionsData]);
 
-            const category = transaction.category.name;
+  const pieChartData = useMemo(() => {
+    if (error || transactions.length === 0) return [];
 
-            if (acc[category]) {
-              acc[category].amount += transaction.amount;
-            } else {
-              acc[category] = {
-                name: category,
-                amount: transaction.amount,
-                color: Categories[category as keyof typeof Categories],
-                legendFontColor: AppStyles.colors.textSecondary,
-                legendFontSize: 15,
-              };
-            }
+    return Object.values(
+      transactions.reduce((acc: { [key: string]: any }, transaction: Transaction) => {
+        if (transaction.type === 'INCOME') return acc;
 
-            return acc;
-          },
-          {}
-        )
-      ),
-    [transactions]
-  );
+        const category = transaction.category.name;
+
+        if (acc[category]) {
+          acc[category].amount += transaction.amount;
+        } else {
+          acc[category] = {
+            name: category,
+            amount: transaction.amount,
+            color: Categories[category as keyof typeof Categories],
+            legendFontColor: AppStyles.colors.textSecondary,
+            legendFontSize: 15,
+          };
+        }
+
+        return acc;
+      }, {})
+    );
+  }, [transactions]);
 
   if (error) {
     Toast.show({
@@ -98,48 +96,54 @@ export default function Home() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      {user && <Title style={{ marginVertical: 24 }}>Olá, {user.name}</Title>}
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      refreshControl={<RefreshControl refreshing={isLoading} onRefresh={refetch} />}
+      contentContainerStyle={{ flexGrow: 1 }}
+    >
+      <SafeAreaView style={styles.container}>
+        {user && <Title style={{ marginVertical: 24 }}>Olá, {user.name}</Title>}
 
-      {/* <BarChart
-        data={barChartData}
-        width={screenWidth - AppStyles.insets.screenPadding}
-        height={220}
-        chartConfig={chartConfig}
-        yAxisLabel='$'
-        yAxisSuffix=''
-        style={{
-          alignSelf: 'center',
-          marginTop: 32,
-          borderRadius: AppStyles.insets.borderRadius,
-        }}
-      /> */}
+        {/* <BarChart
+          data={barChartData}
+          width={screenWidth - AppStyles.insets.screenPadding}
+          height={220}
+          chartConfig={chartConfig}
+          yAxisLabel='$'
+          yAxisSuffix=''
+          style={{
+            alignSelf: 'center',
+            marginTop: 32,
+            borderRadius: AppStyles.insets.borderRadius,
+          }}
+        /> */}
 
-      <Subtitle>Despesas por Categoria</Subtitle>
-      <PieChart
-        data={pieChartData}
-        width={screenWidth - AppStyles.insets.screenPadding}
-        height={220}
-        chartConfig={chartConfig}
-        accessor='amount'
-        paddingLeft='8'
-        backgroundColor={AppStyles.colors.backgroundSecondary}
-        style={{
-          opacity: 0.7,
-          alignSelf: 'center',
-          marginTop: 12,
-          borderRadius: AppStyles.insets.borderRadius,
-        }}
-      />
-    </SafeAreaView>
+        <Subtitle>Despesas por Categoria</Subtitle>
+        <PieChart
+          data={pieChartData}
+          width={screenWidth - AppStyles.insets.screenPadding}
+          height={220}
+          chartConfig={chartConfig}
+          accessor='amount'
+          paddingLeft='8'
+          backgroundColor={AppStyles.colors.backgroundSecondary}
+          style={{
+            opacity: 0.7,
+            alignSelf: 'center',
+            marginTop: 12,
+            borderRadius: AppStyles.insets.borderRadius,
+          }}
+        />
+      </SafeAreaView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: AppStyles.colors.backgroundPrimary,
-    paddingHorizontal: AppStyles.insets.screenPadding,
     paddingBottom: 110,
+    paddingHorizontal: AppStyles.insets.screenPadding,
+    backgroundColor: AppStyles.colors.backgroundPrimary,
   },
 });

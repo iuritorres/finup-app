@@ -33,9 +33,7 @@ interface AuthContextData {
   register: ({ name, email, password }: RegisterParams) => Promise<void>;
 }
 
-export const AuthContext = createContext<AuthContextData>(
-  {} as AuthContextData
-);
+export const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -44,9 +42,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     async function loadStorageData() {
-      const [[, storagedUser], [, storagedToken]] = await AsyncStorage.multiGet(
-        ['@finup:user', '@finup:access_token']
-      );
+      const [[, storagedUser], [, storagedToken]] = await AsyncStorage.multiGet([
+        '@finup:user',
+        '@finup:access_token',
+      ]);
 
       if (storagedUser && storagedToken) {
         setUser(JSON.parse(storagedUser));
@@ -98,9 +97,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider
-      value={{ signed: !!user, user, accessToken, signIn, signOut, register }}
-    >
+    <AuthContext.Provider value={{ signed: !!user, user, accessToken, signIn, signOut, register }}>
       {children}
     </AuthContext.Provider>
   );

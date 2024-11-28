@@ -1,7 +1,7 @@
 import { AppStyles } from '@/AppStyles';
 import { BottomTabBar } from '@/components';
 import { Tabs } from 'expo-router';
-import { ArrowRightLeftIcon, House } from 'lucide-react-native';
+import { ArrowRightLeftIcon, Goal, House } from 'lucide-react-native';
 
 export default function TabsLayout() {
   return (
@@ -15,9 +15,7 @@ export default function TabsLayout() {
         options={{
           tabBarIcon: ({ focused }) => (
             <House
-              color={
-                !focused ? AppStyles.colors.textPrimary : AppStyles.colors.green
-              }
+              color={!focused ? AppStyles.colors.textPrimary : AppStyles.colors.green}
               size={26}
             />
           ),
@@ -29,9 +27,19 @@ export default function TabsLayout() {
         options={{
           tabBarIcon: ({ focused }) => (
             <ArrowRightLeftIcon
-              color={
-                !focused ? AppStyles.colors.textPrimary : AppStyles.colors.green
-              }
+              color={!focused ? AppStyles.colors.textPrimary : AppStyles.colors.green}
+              size={26}
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name='goals'
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Goal
+              color={!focused ? AppStyles.colors.textPrimary : AppStyles.colors.green}
               size={26}
             />
           ),

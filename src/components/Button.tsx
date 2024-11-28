@@ -30,9 +30,13 @@ export const Button = ({
       style={[
         styles.button,
         style,
-        { justifyContent: iconBefore ? 'flex-start' : 'center' },
-        { justifyContent: iconAfter ? 'space-between' : 'center' },
-        { width: icon ? 0 : '100%' },
+        {
+          justifyContent: iconBefore ? 'flex-start' : iconAfter ? 'space-between' : 'center',
+          paddingHorizontal: icon ? 22 : 32,
+          paddingVertical: icon ? 22 : 16,
+          width: icon ? 0 : '100%',
+          height: icon ? 20 : 62,
+        },
       ]}
     >
       {iconBefore}
@@ -45,9 +49,7 @@ export const Button = ({
 const styles = StyleSheet.create({
   button: {
     backgroundColor: AppStyles.colors.purple,
-    height: 62,
     borderRadius: AppStyles.insets.borderRadius,
-    paddingHorizontal: 32,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 24,

@@ -1,13 +1,10 @@
 import { AppStyles } from '@/AppStyles';
-import type {
-  BottomTabBarProps,
-  BottomTabNavigationOptions,
-} from '@react-navigation/bottom-tabs';
+import type { BottomTabBarProps, BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { Href, usePathname } from 'expo-router';
 import { useMemo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
-const visibleInRoutes: Href[] = ['/(tabs)/home', '/(tabs)/transactions'];
+const visibleInRoutes: Href[] = ['/(tabs)/home', '/(tabs)/transactions', '/(tabs)/goals'];
 
 export const BottomTabBar = (props: BottomTabBarProps) => {
   const pathname = usePathname();
@@ -17,9 +14,7 @@ export const BottomTabBar = (props: BottomTabBarProps) => {
     [pathname]
   );
 
-  const getRouterOptions = (
-    key: string
-  ): BottomTabNavigationOptions | undefined => {
+  const getRouterOptions = (key: string): BottomTabNavigationOptions | undefined => {
     return props.descriptors[key]?.options;
   };
 
